@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="my_persistence_unit">
+    <class>com.abarrotes.entidad.Existencia</class>
+    <class>com.abarrotes.entidad.Entrada</class>
+    <class>com.abarrotes.entidad.Cliente</class>
+    <class>com.abarrotes.entidad.Empresa</class>
+    <class>com.abarrotes.entidad.EntradaProducto</class>
+    <class>com.abarrotes.entidad.Proveedor</class>
+    <class>com.abarrotes.entidad.Producto</class>
+    <class>com.abarrotes.entidad.Categoria</class>
+    <class>com.abarrotes.entidad.Sucursal</class>
+    <class>com.abarrotes.entidad.Bodega</class>
+    <class>com.abarrotes.entidad.Usuario</class>
+    <class>com.abarrotes.entidad.Venta</class>
+  </persistence-unit>
+</persistence>
