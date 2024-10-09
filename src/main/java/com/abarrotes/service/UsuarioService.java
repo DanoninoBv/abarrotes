@@ -28,8 +28,8 @@ public class UsuarioService implements UserDetailsService, Serializable {
     UsuarioRepository usuarioRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario user = usuarioRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Usuario user = usuarioRepository.findByUserName(userName).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + userName));
     return User.builder().username(user.getUserName()).password(user.getContraseña()).roles(new String[]{"USER"}).build();
     
     }
