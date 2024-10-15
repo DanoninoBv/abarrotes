@@ -29,8 +29,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(registry -> {
-                    registry.antMatchers("/public/**").permitAll();
-                    registry.antMatchers("/Fresh/index.xhtml**").hasRole("ADMIN");
+                    registry.antMatchers("/javax.faces.resource/**").permitAll();
+                    registry.antMatchers("/usuario.xhtml**").hasRole("ADMIN");
                     registry.anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {

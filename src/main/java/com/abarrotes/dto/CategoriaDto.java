@@ -7,18 +7,6 @@ package com.abarrotes.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -86,10 +74,7 @@ public class CategoriaDto implements Serializable {
             return false;
         }
         CategoriaDto other = (CategoriaDto) object;
-        if ((this.idCategoriaPk == null && other.idCategoriaPk != null) || (this.idCategoriaPk != null && !this.idCategoriaPk.equals(other.idCategoriaPk))) {
-            return false;
-        }
-        return true;
+        return !((this.idCategoriaPk == null && other.idCategoriaPk != null) || (this.idCategoriaPk != null && !this.idCategoriaPk.equals(other.idCategoriaPk)));
     }
 
     @Override

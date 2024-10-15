@@ -1,4 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/abarrotes">
-  <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="abarrotes" password="Gatito:3" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/tiendita?serverTimezone=America/Mexico_City" username="root"/>
-</Context>
+<Context path="/abarrotes"/>

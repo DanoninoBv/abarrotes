@@ -3,6 +3,7 @@ package com.abarrotes.controller;
 import com.abarrotes.service.UsuarioService;
 import com.abarrotes.dto.UsuarioDto;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +24,22 @@ public class InfoUsuarioController implements Serializable {
 
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired
     private UsuarioDto usuario;
-    
-    /* @PostConstruct
+
+    @PostConstruct
     public void init() {
+        usuario = new UsuarioDto();
+        usuario.setNombre("Usuario de Prueba");
+//        usuario = usuarioService.();
+//        if (usuario != null && usuario.getId() != null) {
+//             = (usuario);
+//            if (!usuario.().isEmpty()) {
+//                usuario.setAllowedUrl(.getAllowedUrl(usuario.getRol().getIdRolPk()));
+//
+//            }
+//        }
 
-        usuario = usuarioService.();
-        if (usuario != null && usuario.getId() != null) {
-             = (usuario);
-            if (!usuario.().isEmpty()) {
-                usuario.setAllowedUrl(.getAllowedUrl(usuario.getRol().getIdRolPk()));
-
-            }
-        }
-
-    }*/
+    }
 
     public UsuarioDto getUsuario() {
         return usuario;

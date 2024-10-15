@@ -20,7 +20,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-    /*       // Obtener la URL solicitada
+           // Obtener la URL solicitada
         String requestedUrl = request.getRequestURI();
         if (isStaticResource(requestedUrl)) {
             // Si es un recurso estático, simplemente permite el acceso sin verificar
@@ -28,12 +28,12 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
         }
         // Obtener la lista de pantallas asignadas al usuario (desde la base de datos)
         // Validar si la URL está en la lista de pantallas asignadas
-        Set<String> assignedScreens = infoUsuarioController.getUsuario().getAllowedUrl(); // Implementa esta función
-        if (!assignedScreens.contains(requestedUrl)) {
-            // Redirigir o mostrar un mensaje de acceso denegado
-            response.sendRedirect("/Fresh/index.xhtml");
-            return false;
-        }*/
+//        Set<String> assignedScreens = infoUsuarioController.getUsuario().getAllowedUrl(); // Implementa esta función
+//        if (!assignedScreens.contains(requestedUrl)) {
+//            // Redirigir o mostrar un mensaje de acceso denegado
+//            response.sendRedirect("/Fresh/index.xhtml");
+//            return false;
+//        }*/
 
         return true;
     }
