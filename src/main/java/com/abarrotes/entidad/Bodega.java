@@ -52,9 +52,10 @@ public class Bodega implements Serializable {
     @Column(name = "fecha_alta")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAlta;
-    @JoinColumn(name = "id_usuario_fk", referencedColumnName = "id_usuario_pk")
-    @ManyToOne
-    private Usuario idUsuarioFk;
+    @Column(name = "id_usuario_fk")
+    private Integer idUsuarioFk;
+    @Column(name = "id_sucursal_fk")
+    private Integer idSucursalFk;
 
     public Bodega() {
     }
@@ -103,14 +104,26 @@ public class Bodega implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public Usuario getIdUsuarioFk() {
+    public Integer getIdUsuarioFk() {
         return idUsuarioFk;
     }
 
-    public void setIdUsuarioFk(Usuario idUsuarioFk) {
+    public void setIdUsuarioFk(Integer idUsuarioFk) {
         this.idUsuarioFk = idUsuarioFk;
     }
 
+    
+
+    public Integer getIdSucursalFk() {
+        return idSucursalFk;
+    }
+
+    public void setIdSucursalFk(Integer idSucursalFk) {
+        this.idSucursalFk = idSucursalFk;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

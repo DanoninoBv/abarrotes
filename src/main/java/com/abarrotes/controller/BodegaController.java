@@ -4,7 +4,18 @@
  */
 package com.abarrotes.controller;
 
+import com.abarrotes.dto.BodegaDto;
+import com.abarrotes.dto.SucursalDto;
+import com.abarrotes.entidad.Bodega;
+import com.abarrotes.service.BodegaService;
+import com.abarrotes.service.SucursalService;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
+import static org.aspectj.bridge.context.CompilationAndWeavingContext.reset;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -15,9 +26,106 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(value = "view", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class BodegaController {
-        @PostConstruct
-        public void init (){
-    System.out.print("this");
+public class BodegaController implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Autowired
+    private BodegaService bodegaService;
+    @Autowired
+    private SucursalService sucursalService;
+    private List<BodegaDto> lstbodega;
+    private List<SucursalDto> lstSucursal;
+    private BodegaDto bodega;
+    private BodegaDto bodegaDelete;
+
+    private String stateView = "init";
+
+    @PostConstruct
+    public void init() {
+        lstSucursal = sucursalService.findAll();
+        lstbodega = bodegaService.findAll();
+        reset();
+        stateView = "init";
+    }
+
+    public void search() {
+        stateView = "search";
+    }
+
+    public void viewNew() {
+        stateView = "new";
+        bodega = new BodegaDto();
+    }
+
+    public void back() {
+        stateView = "init";
+        reset();
+    }
+
+    private void reset() {
+        bodega = new BodegaDto();
+    }
+
+    public void insert() {
+        System.out.println("Registro Insertado Correctamente.");
+        if (bodega.getIdBodegaPk() == null) {
+            bodega.setEstatus('1');
+            bodega.setFechaAlta(new Date());
+            bodegaService.insert(bodega);
+        } else {
+            bodegaService.update(bodega);
+        }
+        init();
+        // return "bodega";
+    }
+
+    public void delete() {
+        bodegaDelete.setEstatus('0');
+        bodegaService.delete(bodegaDelete);
+        init();
+    }
+
+    public String getStateView() {
+        return stateView;
+    }
+
+    public void setStateView(String stateView) {
+        this.stateView = stateView;
+    }
+
+    public List<BodegaDto> getLstbodega() {
+        return lstbodega;
+    }
+
+    public void setLstbodega(List<BodegaDto> lstbodega) {
+        this.lstbodega = lstbodega;
+    }
+
+    public BodegaDto getBodega() {
+        return bodega;
+    }
+
+    public void setBodega(BodegaDto bodega) {
+        this.bodega = bodega;
+    }
+
+    public BodegaDto getBodegaDelete() {
+        return bodegaDelete;
+    }
+
+    public List<SucursalDto> getLstSucursal() {
+        return lstSucursal;
+    }
+
+    public void setLstSucursal(List<SucursalDto> lstSucursal) {
+        this.lstSucursal = lstSucursal;
+    }
+
+    public void setBodegaDelete(BodegaDto bodegaDelete) {
+        this.bodegaDelete = bodegaDelete;
+    }
+
+    public void setLstbodega(ArrayList<BodegaDto> lstbodega) {
+        this.lstbodega = lstbodega;
     }
 }

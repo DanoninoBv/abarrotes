@@ -28,6 +28,7 @@
                     <p:column headerText="alta">
                         <h:outputText value="#{categoria.fechaAlta}" />
                     </p:column>
+                    
                     <p:column headerText="Editar">
                         <p:commandButton icon="pi pi-pencil" actionListener="#{categoriaController.search()}" update=":mainForm">  
                             <f:setPropertyActionListener value="#{categoria}" target="#{categoriaController.categoria}" />

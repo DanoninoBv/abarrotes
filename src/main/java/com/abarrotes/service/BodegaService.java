@@ -7,6 +7,7 @@ package com.abarrotes.service;
 import com.abarrotes.dto.BodegaDto;
 import com.abarrotes.entidad.Bodega;
 import com.abarrotes.repository.BodegaRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,33 @@ import org.springframework.stereotype.Service;
 @Service
 
 public class BodegaService {
+    
     @Autowired
     BodegaRepository bodegaRepository;
-    public List<Bodega> findAll(){
-    List<Bodega> lstCategoria = bodegaRepository.findAll();
-        bodegaRepository.findAll();
-        List<Bodega> lstBodegaDto = null;
-        return lstBodegaDto;
+    
+    public List<BodegaDto> findAll(){
+        List<BodegaDto> lstBodegaDto = new ArrayList<>();
+        List<Bodega> lstBodega = bodegaRepository.findAll();
+        for (Bodega b : lstBodega){
+            BodegaDto bd = converterEntidadDto(b);
+            lstBodegaDto.add(bd);
+        }
+        
+        return lstBodegaDto; 
+    }
+    
+    public BodegaDto insert(BodegaDto b) {
+        return converterEntidadDto(bodegaRepository.save(converterDtoEntidad(b)));
+
+    }
+    
+    public BodegaDto update(BodegaDto b) {
+        return converterEntidadDto(bodegaRepository.save(converterDtoEntidad(b)));
+
+    }
+    
+    public int delete(BodegaDto b){
+        return bodegaRepository.delete(b.getIdBodegaPk(), '0');
     }
     
     private BodegaDto converterEntidadDto(Bodega b){
@@ -33,12 +54,12 @@ public class BodegaService {
         bodegaDto.setEstatus(b.getEstatus());
         bodegaDto.setFechaAlta(b.getFechaAlta());
         bodegaDto.setIdBodegaPk(b.getIdBodegaPk());
-        bodegaDto.setIdUsuarioFk(b.getIdUsuarioFk().getIdUsuarioPk());
+        bodegaDto.setIdUsuarioFk(b.getIdUsuarioFk());
         bodegaDto.setNombre(b.getNombre());
         
     return bodegaDto;
     }
-    private Bodega converterDtoEntidad(Bodega b){
+    private Bodega converterDtoEntidad(BodegaDto b){
         Bodega bodega = new Bodega();
         bodega.setDescripcion(b.getDescripcion());
         bodega.setEstatus(b.getEstatus());

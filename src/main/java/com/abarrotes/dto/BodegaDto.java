@@ -20,6 +20,7 @@ public class BodegaDto implements Serializable {
     private Character estatus;
     private Date fechaAlta;
     private Integer idUsuarioFk;
+    private Integer idSucursalFk;
 
     
     public BodegaDto() {
@@ -77,6 +78,16 @@ public class BodegaDto implements Serializable {
         this.idUsuarioFk = idUsuarioFk;
     }
 
+    public Integer getIdSucursalFk() {
+        return idSucursalFk;
+    }
+
+    public void setIdSucursalFk(Integer idSucursalFk) {
+        this.idSucursalFk = idSucursalFk;
+    }
+
+    
+    
   
     @Override
     public int hashCode() {

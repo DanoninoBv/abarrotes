@@ -91,9 +91,8 @@ public class Usuario implements Serializable {
     private Long sueldo;
     @Column(name = "url_foto")
     private String urlFoto;
-    @JoinColumn(name = "id_sucursal_fk", referencedColumnName = "id_sucursal_pk")
-    @ManyToOne
-    private Sucursal idSucursalFk;
+    @Column(name = "id_sucursal_fk")
+    private Integer idSucursalFk;
     @OneToMany(mappedBy = "idUsuarioFk")
     private List<Bodega> bodegaList;
 
@@ -236,13 +235,15 @@ public class Usuario implements Serializable {
         this.urlFoto = urlFoto;
     }
 
-    public Sucursal getIdSucursalFk() {
+    public Integer getIdSucursalFk() {
         return idSucursalFk;
     }
 
-    public void setIdSucursalFk(Sucursal idSucursalFk) {
+    public void setIdSucursalFk(Integer idSucursalFk) {
         this.idSucursalFk = idSucursalFk;
     }
+
+    
 
     @XmlTransient
     public List<Bodega> getBodegaList() {

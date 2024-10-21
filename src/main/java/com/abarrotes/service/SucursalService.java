@@ -7,6 +7,7 @@ package com.abarrotes.service;
 import com.abarrotes.dto.SucursalDto;
 import com.abarrotes.entidad.Sucursal;
 import com.abarrotes.repository.SucursalRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class SucursalService {
     @Autowired
-SucursalRepository sucursalRepository;
-    public List<Sucursal> findAll(){
-    List <Sucursal> lstSucursalDto = sucursalRepository.findAll();
-    return lstSucursalDto;
+    SucursalRepository sucursalRepository;
+    
+    public List<SucursalDto> findAll(){
+        List<SucursalDto> lstSucursalDto = new ArrayList<>();
+        List<Sucursal> lstSucursal = sucursalRepository.findAll();
+        for (Sucursal s : lstSucursal) {
+            SucursalDto sd = converterEntidadDto(s);
+            lstSucursalDto.add(sd);
+        }
+        
+        return lstSucursalDto;
+    
+    }
+    
+    public SucursalDto insert(SucursalDto s) {
+        return converterEntidadDto(sucursalRepository.save(converterDtoEntidad(s)));
+    }
+    
+    public SucursalDto update(SucursalDto s) {
+        return converterEntidadDto(sucursalRepository.save(converterDtoEntidad(s)));
+    }
+    
+    public int delete(SucursalDto s) {
+        return sucursalRepository.delete(s.getIdSucursalPk(), '0');
     }
    
-    private SucursalDto converterEntidadDto (SucursalDto s){
+    private SucursalDto converterEntidadDto (Sucursal s){
     SucursalDto sucursalDto = new SucursalDto();
     sucursalDto.setCp(s.getCp());
     sucursalDto.setDireccion(s.getDireccion());
@@ -39,7 +60,7 @@ SucursalRepository sucursalRepository;
     return sucursalDto;
     } 
     
-    private Sucursal converterEntidadDto (Sucursal s){
+    private Sucursal converterDtoEntidad (SucursalDto s){
     Sucursal sucursal = new Sucursal();
     sucursal.setCp(s.getCp());
     sucursal.setDireccion(s.getDireccion());
