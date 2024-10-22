@@ -56,6 +56,7 @@ public class BodegaService {
         bodegaDto.setIdBodegaPk(b.getIdBodegaPk());
         bodegaDto.setIdUsuarioFk(b.getIdUsuarioFk());
         bodegaDto.setNombre(b.getNombre());
+        bodegaDto.setIdSucursalFk(b.getIdSucursalFk());
         
     return bodegaDto;
     }
@@ -67,6 +68,7 @@ public class BodegaService {
         bodega.setIdBodegaPk(b.getIdBodegaPk());
         bodega.setIdUsuarioFk(b.getIdUsuarioFk());
         bodega.setNombre(b.getNombre());
+        bodega.setIdSucursalFk(b.getIdSucursalFk());
     return bodega;
     }
 }

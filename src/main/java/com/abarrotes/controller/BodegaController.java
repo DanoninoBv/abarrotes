@@ -6,6 +6,7 @@ package com.abarrotes.controller;
 
 import com.abarrotes.dto.BodegaDto;
 import com.abarrotes.dto.SucursalDto;
+import com.abarrotes.dto.UsuarioDto;
 import com.abarrotes.entidad.Bodega;
 import com.abarrotes.service.BodegaService;
 import com.abarrotes.service.SucursalService;
@@ -33,10 +34,13 @@ public class BodegaController implements Serializable {
     private BodegaService bodegaService;
     @Autowired
     private SucursalService sucursalService;
+    @Autowired
+    private InfoUsuarioController infoUsuario;
     private List<BodegaDto> lstbodega;
     private List<SucursalDto> lstSucursal;
     private BodegaDto bodega;
     private BodegaDto bodegaDelete;
+    private UsuarioDto usuario;
 
     private String stateView = "init";
 
@@ -44,6 +48,8 @@ public class BodegaController implements Serializable {
     public void init() {
         lstSucursal = sucursalService.findAll();
         lstbodega = bodegaService.findAll();
+        usuario = infoUsuario.getUsuario();
+        System.out.println("usuario "+usuario.toString());
         reset();
         stateView = "init";
     }
@@ -71,6 +77,7 @@ public class BodegaController implements Serializable {
         if (bodega.getIdBodegaPk() == null) {
             bodega.setEstatus('1');
             bodega.setFechaAlta(new Date());
+            bodega.setIdUsuarioFk(usuario.getIdUsuarioPk());
             bodegaService.insert(bodega);
         } else {
             bodegaService.update(bodega);
@@ -113,16 +120,16 @@ public class BodegaController implements Serializable {
         return bodegaDelete;
     }
 
+    public void setBodegaDelete(BodegaDto bodegaDelete) {
+        this.bodegaDelete = bodegaDelete;
+    }
+
     public List<SucursalDto> getLstSucursal() {
         return lstSucursal;
     }
 
     public void setLstSucursal(List<SucursalDto> lstSucursal) {
         this.lstSucursal = lstSucursal;
-    }
-
-    public void setBodegaDelete(BodegaDto bodegaDelete) {
-        this.bodegaDelete = bodegaDelete;
     }
 
     public void setLstbodega(ArrayList<BodegaDto> lstbodega) {
