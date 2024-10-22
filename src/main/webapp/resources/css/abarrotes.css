@@ -1,0 +1,38 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 18 oct 2024, 5:03:47 p.m.
+    Author     : world
+*/
+
+.ui-button {
+    color: white !important;
+    background-color: #164863 !important;
+    margin: 15 !important;
+    font-family: Cottonwood !important; 
+}
+.ui-column-title {
+    font-family: Cottonwood !important; 
+    font-size: 18px !important;
+}
+
+.button-editar{
+     color: white !important;
+    background-color: #9BBEC8 !important; 
+}
+
+.ui-button-warning{
+    background-color: #fa7558 !important;
+}
+
+.ui-datatable-header{
+    font-family: Cottonwood !important;
+    font-size: 25px !important;
+    background: #DDF2FD !important;
+}
+
+.ui-datatable {
+    border: 3px solid #427D9D !important;
+}
