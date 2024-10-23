@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import static org.aspectj.bridge.context.CompilationAndWeavingContext.reset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -79,8 +81,12 @@ public class BodegaController implements Serializable {
             bodega.setFechaAlta(new Date());
             bodega.setIdUsuarioFk(usuario.getIdUsuarioPk());
             bodegaService.insert(bodega);
+            FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardado", "Registro insertado correctamente"));
         } else {
             bodegaService.update(bodega);
+            FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo", "Nuevo registro"));
         }
         init();
         // return "bodega";
@@ -89,6 +95,8 @@ public class BodegaController implements Serializable {
     public void delete() {
         bodegaDelete.setEstatus('0');
         bodegaService.delete(bodegaDelete);
+        FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));
         init();
     }
 
