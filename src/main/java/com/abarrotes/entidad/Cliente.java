@@ -93,7 +93,7 @@ public class Cliente implements Serializable {
     @Column(name = "correo")
     private String correo;
     @Column(name = "id_empresa_fk")
-    private Character idEmpresaFk;
+    private Integer idEmpresaFk;
     @Column(name = "forma_pago")
     private String formaPago;
     @Column(name = "metodo_pago")
@@ -248,14 +248,16 @@ public class Cliente implements Serializable {
         this.correo = correo;
     }
 
-    public Character getIdEmpresaFk() {
+    public Integer getIdEmpresaFk() {
         return idEmpresaFk;
     }
 
-    public void setIdEmpresaFk(Character idEmpresaFk) {
+    public void setIdEmpresaFk(Integer idEmpresaFk) {
         this.idEmpresaFk = idEmpresaFk;
     }
 
+    
+    
     public String getFormaPago() {
         return formaPago;
     }
@@ -310,10 +312,7 @@ public class Cliente implements Serializable {
             return false;
         }
         Cliente other = (Cliente) object;
-        if ((this.idClientePk == null && other.idClientePk != null) || (this.idClientePk != null && !this.idClientePk.equals(other.idClientePk))) {
-            return false;
-        }
-        return true;
+        return !((this.idClientePk == null && other.idClientePk != null) || (this.idClientePk != null && !this.idClientePk.equals(other.idClientePk)));
     }
 
     @Override

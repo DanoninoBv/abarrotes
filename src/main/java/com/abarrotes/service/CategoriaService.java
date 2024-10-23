@@ -27,7 +27,7 @@ public class CategoriaService {
         List<Categoria> lstCategoria = categoriaRepository.findAll();
         for (Categoria c : lstCategoria) {
             CategoriaDto cd = converterEntidadDto(c);
-            lstCategoriaDto.add(cd);
+            lstCategoriaDto.add(cd);                             
         }
         
         return lstCategoriaDto;
