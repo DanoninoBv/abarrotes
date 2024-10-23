@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="./../templates/main.xhtml"
+<ui:composition template="/WEB-INF/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -8,27 +8,79 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <title>Ajuste Existencias</title>
-        
-        <p:dataTable id="products" var="product" value="#{dtContextMenuView.products}"  rowKey="#{product.id}"
-                     selection="#{dtContextMenuView.selectedProduct}" selectionMode="single">
+        <title>Ajuste Existencias</title> 
+        <p:panel rendered="#{usuarioController.stateView eq 'init'}">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <p:commandButton value="Nuevo" class="col-lg-1 col-md-2 col-sm-2 col-xs-3" actionListener="#{usuarioController.viewNew()}" update=":mainForm"/>  
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row card">
+    
+        <p:dataTable id="usuario" var="usuario" value="#{usuarioController.lstusuario}"  lazy="false">
+           
             <f:facet name="header">
-                RightClick to View Options
+                Catalogo de Usuarios 
             </f:facet>
 
-            <p:column headerText="Code">
-                <h:outputText value="#{product.code}" />
+            <p:column headerText="Id Usuario">
+                <h:outputText value="#{usuario.idUsuarioPk}" />
             </p:column>
-            <p:column headerText="Name">
-                <h:outputText value="#{product.name}" />
+            <p:column headerText="Nombre">
+                <h:outputText value="#{usuario.nombre}" />
             </p:column>
-            <p:column headerText="Category">
-                <h:outputText value="#{product.category}" />
+            <p:column headerText="User Name">
+                <h:outputText value="#{usuario.userName}" />
             </p:column>
-            <p:column headerText="Quantity">
-                <h:outputText value="#{product.quantity}" />
+            <p:column headerText="Correo">
+                <h:outputText value="#{usuario.correo}" />
             </p:column>
+            <p:column headerText="Telefono">
+                <h:outputText value="#{usuario.telefono}" />
+            </p:column>
+            <p:column headerText="Editar">
+                        <p:commandButton icon="pi pi-pencil" actionListener="#{usuarioController.search()}" class="button-editar" update=":mainForm">  
+                            <f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.usuario}" />
+                        </p:commandButton>
+                    </p:column>
+                     <p:column headerText="Eliminar">
+                         <p:commandButton icon="pi pi-trash" action="#{usuarioController.delete}" update=":mainForm" class="ui-button-warning">  
+                            <f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.usuarioDelete}" />
+                        </p:commandButton>
+                    </p:column> 
         </p:dataTable>
+        </div>
+        </p:panel>
+        <p:panel rendered="#{usuarioController.stateView eq 'new' || usuarioController.stateView eq 'search'}">
+            <div lass="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <p:commandButton value="Guardar" actionListener="#{usuarioController.insert()}" update=":mainForm"/>  
+                <p:commandButton value="Atras" actionListener="#{usuarioController.back()}" update=":mainForm" immediate="true" />  
+            </div>
+            
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel for="inputNombre" value="Nombre:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText id="inputNombre" value="#{usuarioController.usuario.nombre}" required="true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel for="inputuserName" value="User Name:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText id="inputuserName" value="#{usuarioController.usuario.userName}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel value="Correo:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText value="#{usuarioController.usuario.correo}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel value="Telefono:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText value="#{usuarioController.usuario.telefono}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel for="inputContraseña" value="Contraseña:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" rendered="#{usuarioController.stateView eq 'new'}"/>
+                    <p:password id="inputContraseña" value="#{usuarioController.usuario.contraseña}" feedback="true"
+                    promptLabel="Ingresa tu contraseña" weakLabel="Débil"
+                    goodLabel="Buena" strongLabel="Fuerte"
+                    rendered="#{usuarioController.stateView eq 'new'}"/>
+                </div>
 
+            </div>
+        </p:panel>
     </ui:define>
 </ui:composition>

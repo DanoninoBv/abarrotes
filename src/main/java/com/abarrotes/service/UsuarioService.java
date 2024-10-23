@@ -10,6 +10,8 @@ import com.abarrotes.service.*;
 import com.abarrotes.entidad.Usuario;
 import com.abarrotes.repository.UsuarioRepository;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -26,12 +28,81 @@ import org.springframework.stereotype.Service;
  */
 @Service
 
-public class UsuarioService implements UserDetailsService, Serializable {
 
-    @Autowired
+public class UsuarioService implements UserDetailsService{
+    @Autowired 
     UsuarioRepository usuarioRepository;
 
-    @Override
+    public List<UsuarioDto> findAll(){
+        List<UsuarioDto> lstUsuarioDto = new ArrayList<>();
+        List<Usuario> lstUsuario = usuarioRepository.findAll();
+        for (Usuario u : lstUsuario) {
+            UsuarioDto ud = converterEntidadDto(u);
+            lstUsuarioDto.add(ud);
+        }
+        return lstUsuarioDto;
+    }
+    public UsuarioDto insert(UsuarioDto u) {
+        return converterEntidadDto(usuarioRepository.save(converterEntidad(u)));
+
+    }
+    
+    public UsuarioDto update(UsuarioDto u) {
+        return converterEntidadDto(usuarioRepository.save(converterEntidad(u)));
+
+    }
+    
+    public int delete(UsuarioDto u){
+        return usuarioRepository.delete(u.getIdUsuarioPk(), '0');
+    }
+    
+    private UsuarioDto converterEntidadDto (Usuario u){
+    UsuarioDto usuarioDto = new UsuarioDto();
+    usuarioDto.setApellidoMaterno(u.getApellidoMaterno());
+    usuarioDto.setApellidoPaterno(u.getApellidoPaterno());
+    usuarioDto.setContraseña(u.getContraseña());
+    usuarioDto.setCorreo(u.getCorreo());
+    usuarioDto.setCp(u.getCp());
+    usuarioDto.setDireccion(u.getDireccion());
+    usuarioDto.setEstatus(u.getEstatus());
+    usuarioDto.setFechaDeAlta(u.getFechaDeAlta());
+    usuarioDto.setFechaNac(u.getFechaNac());
+    usuarioDto.setGenero(u.getGenero());
+    usuarioDto.setIdSucursalFk(u.getIdSucursalFk());
+    usuarioDto.setIdUsuarioPk(u.getIdUsuarioPk());
+    usuarioDto.setNombre(u.getNombre());
+    usuarioDto.setSueldo(u.getSueldo());
+    usuarioDto.setTelefono(u.getTelefono());
+    usuarioDto.setUrlFoto(u.getUrlFoto());
+    usuarioDto.setUserName(u.getUserName());
+    
+    return usuarioDto;
+    }
+    
+    private Usuario converterEntidad (UsuarioDto u){
+    Usuario usuario = new Usuario();
+    usuario.setApellidoMaterno(u.getApellidoMaterno());
+    usuario.setApellidoPaterno(u.getApellidoPaterno());
+    usuario.setContraseña(u.getContraseña());
+    usuario.setCorreo(u.getCorreo());
+    usuario.setCp(u.getCp());
+    usuario.setDireccion(u.getDireccion());
+    usuario.setEstatus(u.getEstatus());
+    usuario.setFechaDeAlta(u.getFechaDeAlta());
+    usuario.setFechaNac(u.getFechaNac());
+    usuario.setGenero(u.getGenero());
+    usuario.setIdSucursalFk(u.getIdSucursalFk());
+    usuario.setIdUsuarioPk(u.getIdUsuarioPk());
+    usuario.setNombre(u.getNombre());
+    usuario.setSueldo(u.getSueldo());
+    usuario.setTelefono(u.getTelefono());
+    usuario.setUrlFoto(u.getUrlFoto());
+    usuario.setUserName(u.getUserName());
+    
+    return usuario;
+    }
+
+     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         Usuario user = usuarioRepository.findByUserName(userName).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + userName));
         return User.builder().username(user.getUserName()).password(user.getContraseña()).roles(new String[]{"ADMIN"}).build();
@@ -61,7 +132,7 @@ public class UsuarioService implements UserDetailsService, Serializable {
         }
 
         if (user != null && user.getIdUsuarioPk() != null) {
-            userD = convertirEntidadADTO(user);
+            userD = converterEntidadDto(user);
 
             // Seteamos el menú
 //        userD.setMenu(menuService.ConstuctMenu(user.getIdRolFk().getIdRolPk()));
@@ -72,15 +143,5 @@ public class UsuarioService implements UserDetailsService, Serializable {
         return userD;
     }
     
-    private UsuarioDto convertirEntidadADTO(Usuario usuario){
-        UsuarioDto u = new UsuarioDto();
-        u.setIdUsuarioPk(usuario.getIdUsuarioPk());
-        u.setIdSucursalFk(usuario.getIdSucursalFk());
-        u.setNombre(usuario.getNombre());
-        u.setUserName(usuario.getUserName());
-        
-        
-        
-        return u;
-    }
+    
 }
