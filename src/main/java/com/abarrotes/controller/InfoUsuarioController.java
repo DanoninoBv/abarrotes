@@ -24,13 +24,13 @@ public class InfoUsuarioController implements Serializable {
 
     @Autowired
     private UsuarioService usuarioService;
+  
     private UsuarioDto usuario;
 
     @PostConstruct
     public void init() {
-        usuario = new UsuarioDto();
-        usuario.setNombre("Usuario de Prueba");
-//        usuario = usuarioService.();
+        
+        usuario = usuarioService.getUsuarioAutenticadoMenu();
 //        if (usuario != null && usuario.getId() != null) {
 //             = (usuario);
 //            if (!usuario.().isEmpty()) {
