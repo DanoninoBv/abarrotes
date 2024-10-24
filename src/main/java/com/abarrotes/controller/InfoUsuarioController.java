@@ -26,6 +26,7 @@ public class InfoUsuarioController implements Serializable {
     private UsuarioService usuarioService;
   
     private UsuarioDto usuario;
+    
 
     @PostConstruct
     public void init() {

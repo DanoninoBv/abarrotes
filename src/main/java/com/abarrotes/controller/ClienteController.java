@@ -6,10 +6,13 @@ package com.abarrotes.controller;
 
 import com.abarrotes.dto.ClienteDto;
 import com.abarrotes.service.ClienteService;
+import com.abarrotes.dto.UsuarioDto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -27,15 +30,17 @@ public class ClienteController implements Serializable {
     @Autowired
     private ClienteService clienteService;
     private List<ClienteDto> lstcliente;
-
+    @Autowired
+    private InfoUsuarioController infoUsuario;
     private ClienteDto cliente;
      private ClienteDto clienteDelete;
-
+    private UsuarioDto usuario;
     private String stateView = "init";
 
     @PostConstruct
         public void init (){
         lstcliente = clienteService.findAll();
+        usuario = infoUsuario.getUsuario();
         reset();
         stateView = "init";
         } 
@@ -64,9 +69,15 @@ public class ClienteController implements Serializable {
         if (cliente.getIdClientePk() == null) {
             cliente.setFechaAlta(new Date());
             cliente.setEstatus('1');
+             cliente.setIdUsuarioFk(usuario.getIdUsuarioPk());
             clienteService.insert(cliente);
+           
+            FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardado", "Registro insertado correctamente"));
         } else {
             clienteService.update(cliente);
+            FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo", "Nuevo registro"));
         }
         init();
 //        return "categoria";///regresamos a la pantalla
@@ -74,6 +85,8 @@ public class ClienteController implements Serializable {
 
     public void delete() {
         clienteService.delete(clienteDelete);
+        FacesContext.getCurrentInstance().
+        addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));
         init();
     }
 

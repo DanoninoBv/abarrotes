@@ -96,7 +96,7 @@
                         <h:outputText value="#{cliente.cp}" />
                     </p:column>
                     <p:column headerText="Editar">
-                        <p:commandButton icon="pi pi-pencil" actionListener="#{clienteController.search()}" update=":mainForm">  
+                        <p:commandButton icon="pi pi-pencil" actionListener="#{clienteController.search()}" update=":mainForm" >  
                             <f:setPropertyActionListener value="#{cliente}" target="#{clienteController.cliente}" />
                         </p:commandButton>
                     </p:column>
@@ -116,40 +116,32 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <p:outputLabel for="inputNombre" value="Nombre:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText id="inputNombre" value="#{clienteController.cliente.nombre}" required="true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText maxlength="20" id="inputNombre" value="#{clienteController.cliente.nombre}" required="true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <p:outputLabel value="Telefono:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText value="#{clienteController.cliente.telefonoCelular}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText maxlength="15" value="#{clienteController.cliente.telefonoCelular}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <p:outputLabel value="Telefono fijo:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText value="#{clienteController.cliente.telefonoFijo}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText maxlength="15" value="#{clienteController.cliente.telefonoFijo}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <p:outputLabel value="Direción:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText value="#{clienteController.cliente.direccion}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText maxlength="20" value="#{clienteController.cliente.direccion}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                 </div>
                 <p:outputLabel for="@next" value="Sexo"/>
                 <p:selectOneMenu id="option" value="#{clienteController.cliente.sexo}">
                     <f:selectItem itemLabel="Masculino" itemValue="M"/>
                     <f:selectItem itemLabel="Femenino" itemValue="F"/>
-                    <f:facet name="footer">
-                        <p:divider styleClass="mt-0" />
-                        <h:outputText value="2 options" style="font-weight:bold;"/>
-                    </f:facet>
                 </p:selectOneMenu>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <p:outputLabel value="id usuario:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText value="#{clienteController.cliente.idUsuarioFk}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <p:outputLabel value="Correo:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText value="#{clienteController.cliente.correo}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText maxlength="20" value="#{clienteController.cliente.correo}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <p:outputLabel value="Codigo postal:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText value="#{clienteController.cliente.cp}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText maxlength="5" value="#{clienteController.cliente.cp}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                 </div>
             </div>
         </p:panel>
