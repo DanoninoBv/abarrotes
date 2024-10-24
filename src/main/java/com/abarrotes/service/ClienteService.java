@@ -8,6 +8,7 @@ package com.abarrotes.service;
 import com.abarrotes.dto.ClienteDto;
 import com.abarrotes.entidad.Cliente;
 import com.abarrotes.repository.ClienteRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,27 @@ import org.springframework.stereotype.Service;
 public class ClienteService {
     @Autowired 
 ClienteRepository clienteRepository;
-    public List<Cliente> findAll(){
-    List <Cliente> lstClienteDto = clienteRepository.findAll();
+    public List<ClienteDto> findAll(){
+    List<ClienteDto> lstClienteDto = new ArrayList<>();   
+    List <Cliente> lstCliente = clienteRepository.findAll();
+    for (Cliente c : lstCliente){
+        ClienteDto cd = converterEntidadDto(c);
+        lstClienteDto.add(cd);
+    }
     return lstClienteDto;
 }
+    public ClienteDto insert(ClienteDto c){
+        return converterEntidadDto(clienteRepository.save(converterDtoEntidad(c)));
+    }
     
-    private ClienteDto converterEntidadDto (ClienteDto c){
+    public ClienteDto update(ClienteDto c){
+        return converterEntidadDto(clienteRepository.save(converterDtoEntidad(c)));
+    }
+    public int delete(ClienteDto c){
+        return clienteRepository.delete(c.getIdClientePk(), '0');
+    }
+    
+    private ClienteDto converterEntidadDto (Cliente c){
     ClienteDto clienteDto = new ClienteDto();
     clienteDto.setCorreo(c.getCorreo());
     clienteDto.setCp(c.getCp());
@@ -55,7 +71,7 @@ ClienteRepository clienteRepository;
     return clienteDto;
     }
     
-    private Cliente  converterDtoEntidad (Cliente c){
+    private Cliente  converterDtoEntidad (ClienteDto c){
     Cliente cliente = new Cliente();
     cliente.setCorreo(c.getCorreo());
     cliente.setCp(c.getCp());
@@ -83,6 +99,13 @@ ClienteRepository clienteRepository;
     
     return cliente;
     }
+
+    /**
+     *
+     * @param clienteDelete
+     */
     
-}
+    }
+    
+
  
