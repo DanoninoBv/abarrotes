@@ -40,8 +40,6 @@ public class UsuarioDto implements Serializable{
         return "UsuarioDto{" + "idUsuarioPk=" + idUsuarioPk + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", contrase\u00f1a=" + contraseña + ", userName=" + sexo + ", fechaNac=" + fechaNac + ", telefono=" + telefono + ", correo=" + correo + ", direccion=" + direccion + ", cp=" + cp + ", fechaDeAlta=" + fechaDeAlta + ", genero=" + genero + ", estatus=" + estatus + ", sueldo=" + sueldo + ", urlFoto=" + urlFoto + ", idSucursalFk=" + idSucursalFk + '}';
     }
     
-    
-
     public Integer getIdUsuarioPk() {
         return idUsuarioPk;
     }
