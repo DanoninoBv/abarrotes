@@ -257,7 +257,6 @@ public class Cliente implements Serializable {
     }
 
     
-
     public String getFormaPago() {
         return formaPago;
     }

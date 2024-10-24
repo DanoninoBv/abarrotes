@@ -30,17 +30,23 @@ public class ClienteController implements Serializable {
     @Autowired
     private ClienteService clienteService;
     private List<ClienteDto> lstcliente;
+<<<<<<< HEAD
     @Autowired
     private InfoUsuarioController infoUsuario;
     private ClienteDto cliente;
      private ClienteDto clienteDelete;
     private UsuarioDto usuario;
+=======
+
+    private ClienteDto cliente;
+     private ClienteDto clienteDelete;
+
+>>>>>>> origin/master
     private String stateView = "init";
 
     @PostConstruct
         public void init (){
         lstcliente = clienteService.findAll();
-        usuario = infoUsuario.getUsuario();
         reset();
         stateView = "init";
         } 
@@ -152,3 +158,7 @@ public class ClienteController implements Serializable {
 
 
 
+<<<<<<< HEAD
+        usuario = infoUsuario.getUsuario();
+=======
+>>>>>>> origin/master
