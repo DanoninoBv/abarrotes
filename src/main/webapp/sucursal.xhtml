@@ -1,64 +1,84 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="/WEB-INF/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    <ui:define name="content">        
-        <title></title>
+
+    <ui:define name="content">
+        <title>sucursal</title>
         <p:panel rendered="#{sucursalController.stateView eq 'init'}">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
                 <p:commandButton value="Nuevo" class="col-lg-1 col-md-2 col-sm-2 col-xs-3" actionListener="#{sucursalController.viewNew()}" update=":mainForm"/>  
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row card">
-                <p:dataTable id="categorias" var="categoria" value="#{sucursalController.lstcategoria}" 
-                             rowStyleClass="#{categoria.estatus eq 1 ? 'ui-button-warning' : 'alert-danger'}" rowKey="#{categoria.idCategoriaPk}">
 
+                <p:dataTable id="sucursal" var="sucursal" value="#{sucursalController.lstsucursal}" lazy="false" > 
+
+                    rowStyleClass="#{sucursal.estatus eq 1 ? 'ui-button-warning' : 'alert-danger'}" rowKey="#{sucursal.idSucursalPk}">
+
+                    <f:facet name="header">
+                        Tabla de sucursal
+                    </f:facet>
+                    <p:column headerText="Id Bodega">
+                        <h:outputText value="#{sucursal.idBodegaPk}" />
+                    </p:column>
                     <p:column headerText="Nombre">
                         <h:outputText value="#{sucursal.nombre}" />
                     </p:column>
-                    <p:column headerText="Direccion">
-                        <h:outputText value="#{sucursal.direccion}" />
+                    <p:column headerText="Descripcion"> 
+                        <h:outputText value="#{sucursal.descripcion}" />
                     </p:column>
-                    <p:column headerText="Codigo Postal">
-                        <h:outputText value="#{sucursal.cp}" />
-                    </p:column>
-                    <p:column headerText="alta">
+                    <p:column headerText="Fecha de alta">
                         <h:outputText value="#{sucursal.fechaAlta}" />
                     </p:column>
-                    
                     <p:column headerText="Editar">
-                        <p:commandButton icon="pi pi-pencil" actionListener="#{categoriaController.search()}" update=":mainForm">  
-                            <f:setPropertyActionListener value="#{categoria}" target="#{categoriaController.categoria}" />
+                        <p:commandButton icon="pi pi-pencil" actionListener="#{sucursalController.search()}" update=":mainForm">  
+                            <f:setPropertyActionListener value="#{sucursal}" target="#{sucursalController.sucursal}" />
                         </p:commandButton>
                     </p:column>
-                     <p:column headerText="Eliminar">
-                         <p:commandButton icon="pi pi-trash" action="#{categoriaController.delete}" update=":mainForm" class="ui-button-warning">  
-                            <f:setPropertyActionListener value="#{categoria}" target="#{categoriaController.categoriaDelete}" />
+                    <p:column headerText="Eliminar">
+                        <p:commandButton icon="pi pi-trash" action="#{sucursalController.delete}" update=":mainForm" class="ui-button-warning">  
+                            <f:setPropertyActionListener value="#{sucursal}" target="#{sucursalController.sucursalDelete}" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
             </div>
         </p:panel>
-        <p:panel rendered="#{categoriaController.stateView eq 'new' || categoriaController.stateView eq 'search'}">
+        <p:panel rendered="#{sucursalController.stateView eq 'new' || sucursalController.stateView eq 'search'}">
             <div lass="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-                <p:commandButton value="Guardar" actionListener="#{categoriaController.insert()}" update=":mainForm"/>  
-                <p:commandButton value="Atras" actionListener="#{categoriaController.back()}" update=":mainForm" immediate="true" />  
+                <p:commandButton value="Guardar" actionListener="#{sucursalController.insert()}" update=":mainForm"/>  
+                <p:commandButton value="Atras" actionListener="#{sucursalController.back()}" update=":mainForm" immediate="true" />  
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <p:outputLabel for="inputNombre" value="Nombre:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText id="inputNombre" value="#{categoriaController.categoria.nombre}" required="true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <p:outputLabel value="Estatus:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                    <p:inputText value="#{categoriaController.categoria.estatus}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                </div>
+             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <p:outputLabel for="inputNombre" value="Sucursal: " class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                <p:selectOneMenu id="option" value="#{sucursalController.sucursal.idEmpresaFk}">
+                    <f:selectItems value="#{sucursalController.lstEmpresa}" var="sucursal" itemLabel="#{empresa.nombre}" itemValue="#{empresa.idEmpresaPk}"/>
+                </p:selectOneMenu>
+            </div>
 
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <p:outputLabel for="inputNombre" value="Nombre:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                <p:inputText id="inputNombre" value="#{sucursalController.sucursal.nombre}" required="true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" maxlength="254"/>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <p:outputLabel value="Descripcion:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                <p:inputText value="#{sucursalController.sucursal.descripcion}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" maxlength="254"/>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel for="inputContraseña" value="Contraseña:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" rendered="#{usuarioController.stateView eq 'new'}"/>
+                    <p:password id="inputContraseña" value="#{usuarioController.usuario.contraseña}" feedback="true"
+                    promptLabel="Ingresa tu contraseña" weakLabel="Débil"
+                    goodLabel="Buena" strongLabel="Fuerte"
+                    rendered="#{usuarioController.stateView eq 'new'}"/>
+                </div>    
+                
             </div>
         </p:panel>
+
 
     </ui:define>
 </ui:composition>

@@ -7,7 +7,7 @@ package com.abarrotes.service;
 import com.abarrotes.dto.EmpresaDto;
 import com.abarrotes.entidad.Empresa;
 import com.abarrotes.repository.EmpresaRepository;
-import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +22,28 @@ import org.springframework.stereotype.Service;
 public class EmpresaService {
     @Autowired
     EmpresaRepository empresaRepository;
-    public List<Empresa> findAll(){
-       List<Empresa> lstEmpresaDto = empresaRepository.findAll();
+    
+    public List<EmpresaDto> findAll(){
+       List<EmpresaDto> lstEmpresaDto = new ArrayList<>();
+       List<Empresa> lstEmpresa = empresaRepository.findAll();
+       for (Empresa e : lstEmpresa) {
+           EmpresaDto ed = converterEntidadDto(e);
+           lstEmpresaDto.add(ed);
+       }
        return lstEmpresaDto;
     }
-    private EmpresaDto converterEntidadDto (EmpresaDto e){
+    
+    public EmpresaDto insert(EmpresaDto e) {
+        return converterEntidadDto(empresaRepository.save(converterDtoEntidad(e)));
+    }
+    
+    public EmpresaDto update(EmpresaDto e) {
+        return converterEntidadDto(empresaRepository.save(converterDtoEntidad(e)));
+    }
+    
+    
+    
+    private EmpresaDto converterEntidadDto (Empresa e){
     EmpresaDto empresaDto = new EmpresaDto();
     empresaDto.setCorreo(e.getCorreo());
     empresaDto.setDireccion(e.getDireccion());
@@ -42,7 +59,6 @@ public class EmpresaService {
     empresaDto.setPasswordCorreo(e.getPasswordCorreo());
     empresaDto.setPuerto(e.getPuerto());
     empresaDto.setRepresentanteLegal(e.getRepresentanteLegal());
-    empresaDto.setSucursalList(e.getSucursalList());
     empresaDto.setTelefono(e.getTelefono());
     empresaDto.setToken(e.getToken());
     empresaDto.setUsuarioCorreo(e.getUsuarioCorreo());
@@ -50,7 +66,7 @@ public class EmpresaService {
     return empresaDto;
     }
     
-    private Empresa converterEntidadDto (Empresa e){
+    private Empresa converterDtoEntidad (EmpresaDto e){
     Empresa empresa = new Empresa ();
     empresa.setCorreo(e.getCorreo());
     empresa.setDireccion(e.getDireccion());
@@ -66,7 +82,6 @@ public class EmpresaService {
     empresa.setPasswordCorreo(e.getPasswordCorreo());
     empresa.setPuerto(e.getPuerto());
     empresa.setRepresentanteLegal(e.getRepresentanteLegal());
-    empresa.setSucursalList(e.getSucursalList());
     empresa.setTelefono(e.getTelefono());
     empresa.setToken(e.getToken());
     empresa.setUsuarioCorreo(e.getUsuarioCorreo());

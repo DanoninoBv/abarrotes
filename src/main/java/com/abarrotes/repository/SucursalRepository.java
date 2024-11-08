@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -13,10 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author world
- */
+/* @author world*/
 
 @Repository
 public interface SucursalRepository extends JpaRepository <Sucursal, Integer>{
@@ -25,7 +23,10 @@ public interface SucursalRepository extends JpaRepository <Sucursal, Integer>{
     
     @Modifying
     @Transactional
-    @Query("UPDATE Sucursal SET estatus = :estatus WHERE id_sucursal_pk = :id")
+    @Query("UPDATE Bodega SET estatus = :estatus WHERE id_bodega_pk = :id")
     int delete(@Param("id") Integer id, @Param("estatus") Character estatus);
     
+    @Transactional
+    @Query("SELECT b FROM  Sucursal b where campo=:idEmpresaFk ")
+    public List<Sucursal> busca( @Param("idEmpresaFk") Integer idEmpresaFk );   
 }

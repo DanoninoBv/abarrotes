@@ -12,10 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author world
- */
+/* @author world*/
 
 @Service
 public class SucursalService {
@@ -55,7 +52,6 @@ public class SucursalService {
     sucursalDto.setIdSucursalPk(s.getIdSucursalPk());
     sucursalDto.setNombre(s.getNombre());
     sucursalDto.setTelefono(s.getTelefono());
-    sucursalDto.setUsuarioList(s.getUsuarioList());
     
     return sucursalDto;
     } 
@@ -69,9 +65,13 @@ public class SucursalService {
     sucursal.setIdSucursalPk(s.getIdSucursalPk());
     sucursal.setNombre(s.getNombre());
     sucursal.setTelefono(s.getTelefono());
-    sucursal.setUsuarioList(s.getUsuarioList());
     
     return sucursal;
     } 
-    
+
+    public List<SucursalDto> select() {
+        List<SucursalDto> lstSucursalDto = new ArrayList<>();
+        busca:;
+        return lstSucursalDto;
+    }
 }

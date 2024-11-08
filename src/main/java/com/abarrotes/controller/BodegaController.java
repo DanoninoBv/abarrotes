@@ -49,7 +49,7 @@ public class BodegaController implements Serializable {
     @PostConstruct
     public void init() {
         lstSucursal = sucursalService.findAll();
-        lstbodega = bodegaService.findAll();
+        lstbodega = bodegaService.select();
         usuario = infoUsuario.getUsuario();
         System.out.println("usuario "+usuario.toString());
         reset();
