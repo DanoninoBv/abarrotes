@@ -5,10 +5,13 @@
 package com.abarrotes.dto;
 
 import com.abarrotes.entidad.*;
+import com.abarrotes.repository.EmpresaRepository;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -213,4 +216,5 @@ public class EmpresaDto implements Serializable {
         return "com.abarrotes.entidad.Empresa[ idEmpresaPk=" + idEmpresaPk + " ]";
     }
     
+
 }
