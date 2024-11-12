@@ -15,14 +15,14 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row card">
     
-        <p:dataTable id="usuario" var="usuario" value="#{empresaController.lstempresa}"  lazy="false">
+        <p:dataTable id="usuario" var="empresa" value="#{empresaController.lstempresa}"  lazy="false">
            
             <f:facet name="header">
                 Catalogo de Usuarios 
             </f:facet>
 
             <p:column headerText="Id Empresa">
-                <h:outputText value="#{empresa.id_empresa_Pk}" />
+                <h:outputText value="#{empresa.idEmpresaPk}" />
             </p:column>
             <p:column headerText="Nombre">
                 <h:outputText value="#{empresa.nombre}" />
@@ -38,11 +38,11 @@
             </p:column>
             <p:column headerText="Editar">
                         <p:commandButton icon="pi pi-pencil" actionListener="#{empresaController.search()}" class="button-editar" update=":mainForm">  
-                            <f:setPropertyActionListener value="#(empresa}" target="#{empresaController.empresa}" />
+                            <f:setPropertyActionListener value="#{empresa}" target="#{empresaController.empresa}" />
                         </p:commandButton>
                     </p:column>
                      <p:column headerText="Eliminar">
-                         <p:commandButton icon="pi pi-trash" action="#{empresaController.delete}" update=":mainForm" class="ui-button-warning">  
+                         <p:commandButton icon="pi pi-trash" action="#{empresaController.delete()}" update=":mainForm" class="ui-button-warning">  
                             <f:setPropertyActionListener value="#{empresa}" target="#{empresaController.empresaDelete}" />
                         </p:commandButton>
                     </p:column> 
@@ -72,14 +72,6 @@
                     <p:outputLabel value="Telefono:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                     <p:inputText value="#{empresaController.empresa.telefono}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" maxlength="20"/>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <p:outputLabel for="inputContraseña" value="Contraseña:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" rendered="#{empresaController.stateView eq 'new'}"/>
-                    <p:password id="inputContraseña" value="#{empresaController.empresa.contraseña}" feedback="true"
-                    promptLabel="Ingresa tu contraseña" weakLabel="Débil"
-                    goodLabel="Buena" strongLabel="Fuerte"
-                    rendered="#{empresaController.stateView eq 'new'}"/>
-                </div>
-
             </div>
         </p:panel>
     </ui:define>

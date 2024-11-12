@@ -60,7 +60,6 @@ public class EmpresaService implements UserDetailsService {
             e.setNombre(o[1].toString());
             e.setCorreo(o[2].toString());
             e.setDireccion(o[2] == null ? null:o[2].toString());
-            
         }
         
         return e;

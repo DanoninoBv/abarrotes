@@ -75,38 +75,28 @@ public class EmpresaController implements Serializable {
         empresa = new EmpresaDto();
     }
 
-    @Component
-    @Scope(value = "view", proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public class UsuarioController implements Serializable {
-
-        private static final long serialVersionUID = 1L;
-
-        @Autowired
-        private EmpresaService empresaService;
-
-        // Otros métodos y variables
-        public void insert() {
-            System.out.println("Registro Insertado Correctamente.");
-            if (empresa.getIdEmpresaPk() == null) {
-                empresa.setEstatus('1');
-                empresaService.insert(empresa);
-                FacesContext.getCurrentInstance()
-                        .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardado", "Registro insertado correctamente"));
-            } else {
-                empresaService.update(empresa);
-                FacesContext.getCurrentInstance()
-                        .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo", "Nuevo registro"));
-            }
-            init();
-        }
-
-        public void delete() {
-            empresaDelete.setEstatus('0');
-            empresaService.delete(empresaDelete);
+    // Otros métodos y variables
+    public void insert() {
+        System.out.println("Registro Insertado Correctamente.");
+        if (empresa.getIdEmpresaPk() == null) {
+            empresa.setEstatus('1');
+            empresaService.insert(empresa);
             FacesContext.getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));
-            init();
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardado", "Registro insertado correctamente"));
+        } else {
+            empresaService.update(empresa);
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo", "Nuevo registro"));
         }
+        init();
+    }
+
+    public void delete() {
+        empresaDelete.setEstatus('0');
+        empresaService.delete(empresaDelete);
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));
+        init();
     }
 
     public String getStateView() {
