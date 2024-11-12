@@ -38,6 +38,7 @@ public class BodegaController implements Serializable {
     private SucursalService sucursalService;
     @Autowired
     private InfoUsuarioController infoUsuario;
+    
     private List<BodegaDto> lstbodega;
     private List<SucursalDto> lstSucursal;
     private BodegaDto bodega;

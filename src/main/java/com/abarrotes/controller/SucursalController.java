@@ -35,7 +35,7 @@ public class SucursalController implements Serializable {
     private SucursalService sucursalService;
     @Autowired
     private EmpresaService empresaService;
-    @Autowired
+
     private List<SucursalDto> lstsucursal;
     private List<EmpresaDto> lstEmpresa;
     private SucursalDto sucursal;
@@ -43,7 +43,7 @@ public class SucursalController implements Serializable {
     private EmpresaDto empresa;
 
     private String stateView = "init";
-
+        
     @PostConstruct
     public void init() {
         UsuarioDto usuario = infoUsuario.getUsuario();
@@ -88,7 +88,6 @@ public class SucursalController implements Serializable {
     }
 
     public void delete() {
-        sucursalDelete.setDireccion(stateView);
         sucursalService.delete(sucursalDelete);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));
@@ -103,13 +102,15 @@ public class SucursalController implements Serializable {
         this.stateView = stateView;
     }
 
-    public List<SucursalDto> getLstbodega() {
+    public List<SucursalDto> getLstsucursal() {
         return lstsucursal;
     }
 
     public void setLstsucursal(List<SucursalDto> lstsucursal) {
         this.lstsucursal = lstsucursal;
     }
+
+ 
 
     public SucursalDto getSucursal() {
         return sucursal;

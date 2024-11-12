@@ -29,4 +29,3 @@ public interface UsuarioRepository extends JpaRepository <Usuario, Integer>{
     @Query("UPDATE Usuario SET estatus = :estatus WHERE id_usuario_pk = :id")
     int delete(@Param("id") Integer id, @Param("estatus") Character estatus);
 }
-8
