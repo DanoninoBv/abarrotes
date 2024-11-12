@@ -86,7 +86,7 @@ public class EmpresaService implements UserDetailsService {
         empresaDto.setPasswordCorreo(e.getPasswordCorreo());
         empresaDto.setPuerto(e.getPuerto());
         empresaDto.setRepresentanteLegal(e.getRepresentanteLegal());
-        empresaDto.setSucursalList(e.getSucursalList());
+  
         empresaDto.setTelefono(e.getTelefono());
         empresaDto.setToken(e.getToken());
         empresaDto.setUsuarioCorreo(e.getUsuarioCorreo());
@@ -110,7 +110,7 @@ public class EmpresaService implements UserDetailsService {
         empresa.setPasswordCorreo(e.getPasswordCorreo());
         empresa.setPuerto(e.getPuerto());
         empresa.setRepresentanteLegal(e.getRepresentanteLegal());
-        empresa.setSucursalList(e.getSucursalList());
+
         empresa.setTelefono(e.getTelefono());
         empresa.setToken(e.getToken());
         empresa.setUsuarioCorreo(e.getUsuarioCorreo());
