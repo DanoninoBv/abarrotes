@@ -10,6 +10,7 @@ import com.abarrotes.repository.SucursalRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 /* @author world*/
@@ -69,9 +70,25 @@ public class SucursalService {
     return sucursal;
     } 
 
-    public List<SucursalDto> select() {
+    public List<SucursalDto> select(Integer idEmpresaFk) {
         List<SucursalDto> lstSucursalDto = new ArrayList<>();
-        busca:;
+        List<Object[]> lstSucursal = sucursalRepository.busca(idEmpresaFk);
+        
+        
+        for (Object[] o: lstSucursal) {
+            SucursalDto s = new SucursalDto();
+            s.setIdSucursalPk(o[0] == null ? null : Integer.valueOf(o[0].toString()));
+            s.setNombre(o[1] == null ? null : o[1].toString());
+            s.setDireccion(o[2] ==  null ? null : o[2].toString());
+            s.setCp(o[3] == null ? null : o[3].toString());
+            s.setTelefono(o[4] == null ? null : o[4].toString());
+            s.setEstatus(o[5] == null ? null : o[5].toString().charAt(0));
+            s.setIdEmpresaFk(o[6] == null ? null : Integer.valueOf(o[6].toString()));
+            lstSucursalDto.add(s);
+        }
+
+
+        
         return lstSucursalDto;
     }
 }

@@ -51,7 +51,7 @@ public class Sucursal implements Serializable {
     private String telefono;
     @Column(name = "estatus")
     private Character estatus;
-    @Column(name = "id_sucursal_fk")
+    @Column(name = "id_empresa_fk")
     private Integer idEmpresaFk;
 
     public Sucursal() {

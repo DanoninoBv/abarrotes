@@ -27,6 +27,6 @@ public interface SucursalRepository extends JpaRepository <Sucursal, Integer>{
     int delete(@Param("id") Integer id, @Param("estatus") Character estatus);
     
     @Transactional
-    @Query("SELECT b FROM  Sucursal b where campo=:idEmpresaFk ")
-    public List<Sucursal> busca( @Param("idEmpresaFk") Integer idEmpresaFk );   
+    @Query(value="SELECT * FROM  Sucursal  where id_empresa_fk=:idEmpresaFk ",nativeQuery=true)
+    public List<Object[]> busca( @Param("idEmpresaFk") Integer idEmpresaFk );   
 }
