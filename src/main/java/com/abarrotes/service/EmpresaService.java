@@ -49,10 +49,6 @@ public class EmpresaService implements UserDetailsService {
     
     public EmpresaDto findByIdUsuario(Integer idUsuario) {
         EmpresaDto e = new EmpresaDto();
-//        Empresa emp = empresaRepository.findByIdUsuario(idUsuario);
-//        e = converterEntidadDto(emp);
-//
-//        return e;
         List<Object[]> lstO = empresaRepository.findByIdUsuario(idUsuario);
         
         for (Object[] o : lstO) {

@@ -46,9 +46,7 @@ public class SucursalController implements Serializable {
         
     @PostConstruct
     public void init() {
-        UsuarioDto usuario = infoUsuario.getUsuario();
-        
-        lstEmpresa = empresaService.findAll();
+        UsuarioDto usuario = infoUsuario.getUsuario();  
         lstsucursal = sucursalService.select();
         reset();
         stateView = "init";
