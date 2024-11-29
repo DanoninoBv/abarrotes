@@ -74,7 +74,7 @@ public class SucursalController implements Serializable {
     public void insert() {
         System.out.println("Registro Inertado Correctamente");
         if (sucursal.getIdSucursalPk() == null) {
-            sucursal.setEstatus('1');
+            sucursal.setEstatus("1");
             sucursal.setIdEmpresaFk(empresa.getIdEmpresaPk());
             sucursalService.insert(sucursal);
             FacesContext.getCurrentInstance().
@@ -88,7 +88,8 @@ public class SucursalController implements Serializable {
     }
 
     public void delete() {
-        sucursal.setEstatus('0');
+        System.out.println("sucurssl "+sucursal);
+        sucursal.setEstatus("0");
         sucursalService.delete(sucursal);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));

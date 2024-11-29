@@ -23,9 +23,10 @@ public interface SucursalRepository extends JpaRepository <Sucursal, Integer>{
     
     @Modifying
     @Transactional
-    @Query("UPDATE Bodega SET estatus = :estatus WHERE id_bodega_pk = :id")
+    @Query(value="UPDATE Sucursal SET estatus = :estatus WHERE id_sucursal_pk = :id ",nativeQuery=true)
     int delete(@Param("id") Integer id, @Param("estatus") Character estatus);
     
+    @Modifying
     @Transactional
     @Query(value="SELECT * FROM  Sucursal  where id_empresa_fk=:idEmpresaFk ",nativeQuery=true)
     public List<Object[]> busca( @Param("idEmpresaFk") Integer idEmpresaFk );   
