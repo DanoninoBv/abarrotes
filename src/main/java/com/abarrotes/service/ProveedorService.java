@@ -7,6 +7,7 @@ package com.abarrotes.service;
 import com.abarrotes.dto.ProveedorDto;
 import com.abarrotes.entidad.Proveedor;
 import com.abarrotes.repository.ProveedorRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,30 @@ import org.springframework.stereotype.Service;
 public class ProveedorService {
     @Autowired
 ProveedorRepository proveedorRepository;
-    public List<Proveedor> findAll(){
-    List <Proveedor> lstProveedorDto = proveedorRepository.findAll();
-    return lstProveedorDto;
+    public List<ProveedorDto> findAll(){
+    List<ProveedorDto> lstProveedorDto = new ArrayList<>();   
+    List <Proveedor> lstCliente = proveedorRepository.findAll();
+    for (Proveedor c : lstCliente){
+        ProveedorDto cd = converterEntidadDto(c);
+        System.out.println("cd "+cd.toString());
+        lstProveedorDto.add(cd);
+       
     }
     
-    private ProveedorDto converterEntidadDto (ProveedorDto p){
+    return lstProveedorDto;
+}
+    public ProveedorDto insert(ProveedorDto c){
+        return converterEntidadDto(proveedorRepository.save(converterDtoEntidad(c)));
+    }
+    
+    public ProveedorDto update(ProveedorDto c){
+        return converterEntidadDto(proveedorRepository.save(converterDtoEntidad(c)));
+    }
+    public int delete(ProveedorDto c){
+        return proveedorRepository.delete(c.getIdProvedorPk(), '0');
+    }
+    
+    private ProveedorDto converterEntidadDto (Proveedor p){
     ProveedorDto proveedorDto = new ProveedorDto();
     proveedorDto.setCorreo(p.getCorreo());
     proveedorDto.setCp(p.getCp());
@@ -45,7 +64,7 @@ ProveedorRepository proveedorRepository;
     return proveedorDto;
     }
     
-    private Proveedor converterEntidadDto (Proveedor p){
+    private Proveedor converterDtoEntidad (ProveedorDto p){
     Proveedor proveedor = new Proveedor();
     proveedor.setCorreo(p.getCorreo());
     proveedor.setCp(p.getCp());
@@ -62,7 +81,18 @@ ProveedorRepository proveedorRepository;
     proveedor.setSexo(p.getSexo());
     proveedor.setTelefono(p.getTelefono());
     
+    
     return proveedor;
     }
+
+    public void setEstatus(char c) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    /**
+     *
+     * @param provedorDelete
+     */
     
-}
+    }
+    
