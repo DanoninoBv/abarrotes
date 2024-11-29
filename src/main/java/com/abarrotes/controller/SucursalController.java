@@ -39,15 +39,16 @@ public class SucursalController implements Serializable {
     private List<SucursalDto> lstsucursal;
     private List<EmpresaDto> lstEmpresa;
     private SucursalDto sucursal;
-    private SucursalDto sucursalDelete;
     private EmpresaDto empresa;
 
     private String stateView = "init";
         
     @PostConstruct
     public void init() {
-        UsuarioDto usuario = infoUsuario.getUsuario();  
-        lstsucursal = sucursalService.select();
+        UsuarioDto usuario = infoUsuario.getUsuario();
+        
+        empresa = empresaService.findByIdUsuario(usuario.getIdUsuarioPk());
+        lstsucursal = sucursalService.select(empresa.getIdEmpresaPk());
         reset();
         stateView = "init";
     }
@@ -73,8 +74,9 @@ public class SucursalController implements Serializable {
     public void insert() {
         System.out.println("Registro Inertado Correctamente");
         if (sucursal.getIdSucursalPk() == null) {
-            sucursal.setEstatus('1');
+            sucursal.setEstatus("1");
             sucursal.setIdEmpresaFk(empresa.getIdEmpresaPk());
+            sucursalService.insert(sucursal);
             FacesContext.getCurrentInstance().
                     addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardado", "Registro insertado correctamente"));
         } else {
@@ -86,7 +88,9 @@ public class SucursalController implements Serializable {
     }
 
     public void delete() {
-        sucursalService.delete(sucursalDelete);
+        System.out.println("sucurssl "+sucursal);
+        sucursal.setEstatus("0");
+        sucursalService.delete(sucursal);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));
         init();
@@ -118,16 +122,10 @@ public class SucursalController implements Serializable {
         this.sucursal = sucursal;
     }
 
-    public SucursalDto getSucursalDelete() {
-        return sucursalDelete;
-    }
+
 
     public List<EmpresaDto> getLstEmpresa() {
         return lstEmpresa;
-    }
-
-    public void setSucuralDelete(SucursalDto sucursalDelete) {
-        this.sucursalDelete = sucursalDelete;
     }
 
     public void setLstsucursal(ArrayList<SucursalDto> lstsucursal) {

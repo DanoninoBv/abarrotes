@@ -18,7 +18,7 @@ public class SucursalDto implements Serializable {
     private String direccion;
     private String cp;
     private String telefono;
-    private Character estatus;
+    private String estatus;
     private Integer idEmpresaFk;
 
     public SucursalDto() {
@@ -68,11 +68,11 @@ public class SucursalDto implements Serializable {
         this.telefono = telefono;
     }
 
-    public Character getEstatus() {
+    public String getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(Character estatus) {
+    public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
 

@@ -212,10 +212,7 @@ public class Proveedor implements Serializable {
             return false;
         }
         Proveedor other = (Proveedor) object;
-        if ((this.idProvedorPk == null && other.idProvedorPk != null) || (this.idProvedorPk != null && !this.idProvedorPk.equals(other.idProvedorPk))) {
-            return false;
-        }
-        return true;
+        return !((this.idProvedorPk == null && other.idProvedorPk != null) || (this.idProvedorPk != null && !this.idProvedorPk.equals(other.idProvedorPk)));
     }
 
     @Override

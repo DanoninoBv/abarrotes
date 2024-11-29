@@ -31,6 +31,23 @@ public class ProveedorDto implements Serializable {
     private String nombreCorto;
     private String correo;
     private String pais;
+    private Integer setIdUsuarioFk;
+
+    
+    
+
+    public Integer getSetIdUsuarioFk() {
+        return setIdUsuarioFk;
+    }
+
+    /**
+     *
+     * @return
+     */
+    
+    public void setSetIdUsuarioFk(Integer setIdUsuarioFk) {
+        this.setIdUsuarioFk = setIdUsuarioFk;
+    }
 
     public ProveedorDto() {
     }
@@ -173,7 +190,9 @@ public class ProveedorDto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.abarrotes.entidad.Proveedor[ idProvedorPk=" + idProvedorPk + " ]";
+        return "ProveedorDto{" + "idProvedorPk=" + idProvedorPk + ", nombre=" + nombre + ", empresa=" + empresa + ", direccion=" + direccion + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", telefono=" + telefono + ", cp=" + cp + ", rfcProve=" + rfcProve + ", estatus=" + estatus + ", fechaAlta=" + fechaAlta + ", nombreCorto=" + nombreCorto + ", correo=" + correo + ", pais=" + pais + ", setIdUsuarioFk=" + setIdUsuarioFk + '}';
     }
+
+
     
 }

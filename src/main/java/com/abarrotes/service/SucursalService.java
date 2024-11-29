@@ -10,6 +10,7 @@ import com.abarrotes.repository.SucursalRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 /* @author world*/
@@ -40,6 +41,7 @@ public class SucursalService {
     }
     
     public int delete(SucursalDto s) {
+        System.out.println("id "+s.getIdSucursalPk());
         return sucursalRepository.delete(s.getIdSucursalPk(), '0');
     }
    
@@ -47,7 +49,7 @@ public class SucursalService {
     SucursalDto sucursalDto = new SucursalDto();
     sucursalDto.setCp(s.getCp());
     sucursalDto.setDireccion(s.getDireccion());
-    sucursalDto.setEstatus(s.getEstatus());
+    sucursalDto.setEstatus(s.getEstatus().toString());
     sucursalDto.setIdEmpresaFk(s.getIdEmpresaFk());
     sucursalDto.setIdSucursalPk(s.getIdSucursalPk());
     sucursalDto.setNombre(s.getNombre());
@@ -60,7 +62,7 @@ public class SucursalService {
     Sucursal sucursal = new Sucursal();
     sucursal.setCp(s.getCp());
     sucursal.setDireccion(s.getDireccion());
-    sucursal.setEstatus(s.getEstatus());
+    sucursal.setEstatus(s.getEstatus().charAt(0));
     sucursal.setIdEmpresaFk(s.getIdEmpresaFk());
     sucursal.setIdSucursalPk(s.getIdSucursalPk());
     sucursal.setNombre(s.getNombre());
@@ -69,9 +71,25 @@ public class SucursalService {
     return sucursal;
     } 
 
-    public List<SucursalDto> select() {
+    public List<SucursalDto> select(Integer idEmpresaFk) {
         List<SucursalDto> lstSucursalDto = new ArrayList<>();
-        busca:;
+        List<Object[]> lstSucursal = sucursalRepository.busca(idEmpresaFk);
+        
+        
+        for (Object[] o: lstSucursal) {
+            SucursalDto s = new SucursalDto();
+            s.setIdSucursalPk(o[0] == null ? null : Integer.valueOf(o[0].toString()));
+            s.setNombre(o[1] == null ? null : o[1].toString());
+            s.setDireccion(o[2] ==  null ? null : o[2].toString());
+            s.setCp(o[3] == null ? null : o[3].toString());
+            s.setTelefono(o[4] == null ? null : o[4].toString());
+            s.setEstatus(o[5] == null ? null : o[5].toString());
+            s.setIdEmpresaFk(o[6] == null ? null : Integer.valueOf(o[6].toString()));
+            lstSucursalDto.add(s);
+        }
+
+
+        
         return lstSucursalDto;
     }
 }
