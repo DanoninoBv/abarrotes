@@ -4,10 +4,7 @@
  */
 package com.abarrotes.dto;
 
-import com.abarrotes.entidad.*;
 import java.io.Serializable;
-import java.util.List;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -21,9 +18,8 @@ public class SucursalDto implements Serializable {
     private String direccion;
     private String cp;
     private String telefono;
-    private Character estatus;
-    private Empresa idEmpresaFk;
-    private List<Usuario> usuarioList;
+    private String estatus;
+    private Integer idEmpresaFk;
 
     public SucursalDto() {
     }
@@ -72,29 +68,20 @@ public class SucursalDto implements Serializable {
         this.telefono = telefono;
     }
 
-    public Character getEstatus() {
+    public String getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(Character estatus) {
+    public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
 
-    public Empresa getIdEmpresaFk() {
+    public Integer getIdEmpresaFk() {
         return idEmpresaFk;
     }
 
-    public void setIdEmpresaFk(Empresa idEmpresaFk) {
+    public void setIdEmpresaFk(Integer idEmpresaFk) {
         this.idEmpresaFk = idEmpresaFk;
-    }
-
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
     }
 
     @Override

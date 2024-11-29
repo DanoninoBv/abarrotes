@@ -4,20 +4,28 @@
  */
 package com.abarrotes.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.abarrotes.entidad.Empresa;
 import java.util.List;
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author world
  */
-
 @Repository
-public interface EmpresaRepository extends JpaRepository <Empresa, Integer>{
-      @Override
-    public List<Empresa> findAll();
-}
+public interface EmpresaRepository extends JpaRepository<Empresa, Integer> {
 
+    @Query(value = "SELECT * FROM EMPRESA ", nativeQuery = true)
+    List<Empresa> findAllNativo();
+
+    @Query(value = "SELECT E.* FROM EMPRESA E "
+            + "LEFT JOIN SUCURSAL S ON E.ID_EMPRESA_PK = S.ID_EMPRESA_FK "
+            + "LEFT JOIN USUARIO U ON U.ID_SUCURSAL_FK = S.ID_SUCURSAL_PK "
+            + "WHERE U.ID_USUARIO_PK =:idUsuario", nativeQuery = true)
+    List<Object[]> findByIdUsuario(@Param("idUsuario") Integer idUsuario);
+
+}

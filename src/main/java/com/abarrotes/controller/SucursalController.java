@@ -4,12 +4,17 @@
  */
 package com.abarrotes.controller;
 
+import com.abarrotes.dto.EmpresaDto;
 import com.abarrotes.dto.SucursalDto;
+import com.abarrotes.dto.UsuarioDto;
+import com.abarrotes.service.EmpresaService;
 import com.abarrotes.service.SucursalService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -19,93 +24,111 @@ import org.springframework.stereotype.Component;
  *
  * @author world
  */
-
 @Component
 @Scope(value = "view", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class SucursalController implements Serializable{
-    
+public class SucursalController implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Autowired
+    private InfoUsuarioController infoUsuario;
+    @Autowired
     private SucursalService sucursalService;
-    private List<SucursalDto> lstsucursal;
-    
-    private SucursalDto sucursal;
-    private SucursalDto sucursalDelete;
-    
-    private String stateView = "init";
-    
-    @PostConstruct
-        public void init (){
-            lstsucursal = sucursalService.findAll();
-            reset();
-            stateView = "init";
-        }
+    @Autowired
+    private EmpresaService empresaService;
 
-        public void search() {
-            stateView = "search";
-        }
+    private List<SucursalDto> lstsucursal;
+    private List<EmpresaDto> lstEmpresa;
+    private SucursalDto sucursal;
+    private EmpresaDto empresa;
+
+    private String stateView = "init";
         
-        public void viewNew() {
-            stateView = "new";
-            sucursal = new SucursalDto();
-        }
+    @PostConstruct
+    public void init() {
+        UsuarioDto usuario = infoUsuario.getUsuario();
         
-        public void back() {
-            stateView = "init";
-            reset();
+        empresa = empresaService.findByIdUsuario(usuario.getIdUsuarioPk());
+        lstsucursal = sucursalService.select(empresa.getIdEmpresaPk());
+        reset();
+        stateView = "init";
+    }
+
+    public void search() {
+        stateView = "search";
+    }
+
+    public void viewNew() {
+        stateView = "new";
+        sucursal = new SucursalDto();
+    }
+
+    public void back() {
+        stateView = "init";
+        reset();
+    }
+
+    private void reset() {
+        sucursal = new SucursalDto();
+    }
+
+    public void insert() {
+        System.out.println("Registro Inertado Correctamente");
+        if (sucursal.getIdSucursalPk() == null) {
+            sucursal.setEstatus("1");
+            sucursal.setIdEmpresaFk(empresa.getIdEmpresaPk());
+            sucursalService.insert(sucursal);
+            FacesContext.getCurrentInstance().
+                    addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardado", "Registro insertado correctamente"));
+        } else {
+            sucursalService.update(sucursal);
+            FacesContext.getCurrentInstance().
+                    addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo", "Nuevo registro"));
         }
-        
-        private void reset(){
-            sucursal = new SucursalDto();
-        }
-        
-        public void insert() {
-            System.out.println("Registro Inertado Correctamente");
-            if (sucursal.getIdSucursalPk() == null) {
-                sucursal.setNombre(stateView);
-                sucursal.setDireccion(stateView);
-                sucursal.setCp(stateView);
-            } else {
-                sucursalService.update(sucursal);
-            }
-            init();
-        }
-        
-        public void delete() {
-            sucursalDelete.setDireccion(stateView);
-            sucursalService.delete(sucursalDelete);
-            init();
-        }
-        
-        public String getStateView() {
-            return stateView;
-        }
-        
-        public List<SucursalDto> getLstbodega() {
-            return lstsucursal;
-        }
-        
-        public void setLstsucursal(List<SucursalDto> lstsucursal) {
-            this.lstsucursal = lstsucursal;
-        }
-        
-        public SucursalDto getSucursal() {
-            return sucursal;
-        }
-        
-        public void setSucursal(SucursalDto sucursal) {
-            this.sucursal = sucursal;
-        }
-        
-        public SucursalDto getSucursalDelete() {
-            return sucursalDelete;
-        }
-        
-        public void setSucuralDelete(SucursalDto sucursalDelete) {
-            this.sucursalDelete = sucursalDelete;
-        }
-        
-        public void setLstsucursal(ArrayList<SucursalDto> lstsucursal) {
-            this.lstsucursal = lstsucursal;
-        }
+        init();
+    }
+
+    public void delete() {
+        System.out.println("sucurssl "+sucursal);
+        sucursal.setEstatus("0");
+        sucursalService.delete(sucursal);
+        FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Registro eliminado"));
+        init();
+    }
+
+    public String getStateView() {
+        return stateView;
+    }
+
+    public void setStateView(String stateView) {
+        this.stateView = stateView;
+    }
+
+    public List<SucursalDto> getLstsucursal() {
+        return lstsucursal;
+    }
+
+    public void setLstsucursal(List<SucursalDto> lstsucursal) {
+        this.lstsucursal = lstsucursal;
+    }
+
+ 
+
+    public SucursalDto getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(SucursalDto sucursal) {
+        this.sucursal = sucursal;
+    }
+
+
+
+    public List<EmpresaDto> getLstEmpresa() {
+        return lstEmpresa;
+    }
+
+    public void setLstsucursal(ArrayList<SucursalDto> lstsucursal) {
+        this.lstsucursal = lstsucursal;
+    }
 }

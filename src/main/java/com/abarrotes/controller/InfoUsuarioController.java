@@ -1,5 +1,6 @@
 package com.abarrotes.controller;
 
+import com.abarrotes.dto.EmpresaDto;
 import com.abarrotes.service.UsuarioService;
 import com.abarrotes.dto.UsuarioDto;
 import java.io.Serializable;
@@ -41,6 +42,8 @@ public class InfoUsuarioController implements Serializable {
 //        }
 
     }
+    
+    
 
     public UsuarioDto getUsuario() {
         return usuario;

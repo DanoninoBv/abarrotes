@@ -48,6 +48,17 @@ public class BodegaService {
         return bodegaRepository.delete(b.getIdBodegaPk(), '0');
     }
     
+     public List<BodegaDto> select(){
+        List<BodegaDto> lstBodegaDto = new ArrayList<>();
+        List<Bodega> lstBodega = bodegaRepository.busca();
+        for (Bodega b : lstBodega){
+            BodegaDto bd = converterEntidadDto(b);
+            lstBodegaDto.add(bd);
+        }
+        
+        return lstBodegaDto; 
+    }
+    
     private BodegaDto converterEntidadDto(Bodega b){
         BodegaDto bodegaDto = new BodegaDto();
         bodegaDto.setDescripcion(b.getDescripcion());

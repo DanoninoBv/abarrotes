@@ -1,15 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <title>Ajuste Existencias</title> 
+        <p:panel rendered="#{empresaController.stateView eq 'init'}">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <p:commandButton value="Nuevo" class="col-lg-1 col-md-2 col-sm-2 col-xs-3" actionListener="#{empresaController.viewNew()}" update=":mainForm"/>  
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row card">
+    
+        <p:dataTable id="usuario" var="empresa" value="#{empresaController.lstempresa}"  lazy="false">
+           
+            <f:facet name="header">
+                Catalogo de Usuarios 
+            </f:facet>
+
+            <p:column headerText="Id Empresa">
+                <h:outputText value="#{empresa.idEmpresaPk}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{empresa.nombre}" />
+            </p:column>
+            <p:column headerText="Direccion">
+                <h:outputText value="#{empresa.direccion}" />
+            </p:column>
+            <p:column headerText="Correo">
+                <h:outputText value="#{empresa.correo}" />
+            </p:column>
+            <p:column headerText="Telefono">
+                <h:outputText value="#{empresa.telefono}" />
+            </p:column>
+            <p:column headerText="Editar">
+                        <p:commandButton icon="pi pi-pencil" actionListener="#{empresaController.search()}" class="button-editar" update=":mainForm">  
+                            <f:setPropertyActionListener value="#{empresa}" target="#{empresaController.empresa}" />
+                        </p:commandButton>
+                    </p:column>
+                     <p:column headerText="Eliminar">
+                         <p:commandButton icon="pi pi-trash" action="#{empresaController.delete()}" update=":mainForm" class="ui-button-warning">  
+                            <f:setPropertyActionListener value="#{empresa}" target="#{empresaController.empresaDelete}" />
+                        </p:commandButton>
+                    </p:column> 
+        </p:dataTable>
+        </div>
+        </p:panel>
+        <p:panel rendered="#{empresaController.stateView eq 'new' || empresaController.stateView eq 'search'}">
+            <div lass="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <p:commandButton value="Guardar" actionListener="#{empresaController.insert()}" update=":mainForm"/>  
+                <p:commandButton value="Atras" actionListener="#{empresaController.back()}" update=":mainForm" immediate="true" />  
+            </div>
+            
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel for="inputNombre" value="Nombre:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText id="inputNombre" value="#{empresaController.empresa.nombre}" required="true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" maxlength="20"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel for="inputuserName" value="User Name:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText id="inputuserName" value="#{empresaController.empresa.direccion}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" maxlength="20"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel value="Correo:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText value="#{empresaController.empresa.correo}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" maxlength="30"/>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <p:outputLabel value="Telefono:" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+                    <p:inputText value="#{empresaController.empresa.telefono}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" maxlength="20"/>
+                </div>
+            </div>
+        </p:panel>
+    </ui:define>
+</ui:composition>

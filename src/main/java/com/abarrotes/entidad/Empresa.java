@@ -86,8 +86,6 @@ public class Empresa implements Serializable {
     private String instancia;
     @Column(name = "estatus")
     private Character estatus;
-    @OneToMany(mappedBy = "idEmpresaFk")
-    private List<Sucursal> sucursalList;
 
     public Empresa() {
     }
@@ -232,14 +230,7 @@ public class Empresa implements Serializable {
         this.estatus = estatus;
     }
 
-    @XmlTransient
-    public List<Sucursal> getSucursalList() {
-        return sucursalList;
-    }
-
-    public void setSucursalList(List<Sucursal> sucursalList) {
-        this.sucursalList = sucursalList;
-    }
+    
 
     @Override
     public int hashCode() {

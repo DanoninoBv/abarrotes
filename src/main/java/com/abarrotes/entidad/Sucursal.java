@@ -21,10 +21,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author world
- */
+/*@author world*/
 @Entity
 @Table(name = "sucursal")
 @XmlRootElement
@@ -54,11 +51,8 @@ public class Sucursal implements Serializable {
     private String telefono;
     @Column(name = "estatus")
     private Character estatus;
-    @JoinColumn(name = "id_empresa_fk", referencedColumnName = "id_empresa_pk")
-    @ManyToOne
-    private Empresa idEmpresaFk;
-    @OneToMany(mappedBy = "idSucursalFk")
-    private List<Usuario> usuarioList;
+    @Column(name = "id_empresa_fk")
+    private Integer idEmpresaFk;
 
     public Sucursal() {
     }
@@ -115,22 +109,15 @@ public class Sucursal implements Serializable {
         this.estatus = estatus;
     }
 
-    public Empresa getIdEmpresaFk() {
+    public Integer getIdEmpresaFk() {
         return idEmpresaFk;
     }
 
-    public void setIdEmpresaFk(Empresa idEmpresaFk) {
+    public void setIdEmpresaFk(Integer idEmpresaFk) {
         this.idEmpresaFk = idEmpresaFk;
     }
 
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
-    }
+    
 
     @Override
     public int hashCode() {

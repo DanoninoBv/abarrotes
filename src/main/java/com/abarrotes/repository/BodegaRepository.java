@@ -27,4 +27,8 @@ public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
     @Query("UPDATE Bodega SET estatus = :estatus WHERE id_bodega_pk = :id")
     int delete(@Param("id") Integer id, @Param("estatus") Character estatus);
     
+    @Query("SELECT b FROM  Bodega b ")
+    public List<Bodega> busca();
+    
+    
 }
